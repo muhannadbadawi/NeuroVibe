@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     View,
     Text,
@@ -24,15 +24,23 @@ const colors = {
 
 export default function Login() {
     const router = useRouter();
+    const [username, setUsername] = useState(""); // Initialize with an empty string
+    const [password, setPassword] = useState(""); // Initialize with an empty string
 
     const handleLogin = () => {
-        // Logic for authentication
-        router.push('/(tabs)'); // Navigate to the "tabs" route
+        // Basic validation
+        // if (!username || !password) {
+        //     alert("Please fill in both username and password");
+        //     return;
+        // }
+    
+        // Proceed with authentication logic
+        router.push('./tabs/home'); // Navigate to the "tabs/home" route (absolute path)
     };
 
     const handleRegisterRedirect = () => {
         // Logic for navigating to the registration screen
-        router.push('/register'); // Adjust the route to your registration screen
+        router.push('./register'); // Navigate to the "tabs/register" route (absolute path)
     };
 
     return (
@@ -51,14 +59,22 @@ export default function Login() {
                     <Text style={[styles.title, { color: colors.primaryRed }]}>
                         Welcome to NeuroVibe
                     </Text>
+
+                    {/* Username Input */}
+                    <Text style={styles.inputLabel}>Username</Text>
                     <TextInput
                         style={[styles.input, { borderColor: colors.inputBorder }]}
-                        placeholder="Username"
+                        value={username}
+                        onChangeText={setUsername} // Bind the username state
                         autoCapitalize="none"
                     />
+
+                    {/* Password Input */}
+                    <Text style={styles.inputLabel}>Password</Text>
                     <TextInput
                         style={[styles.input, { borderColor: colors.inputBorder }]}
-                        placeholder="Password"
+                        value={password}
+                        onChangeText={setPassword} // Bind the password state
                         secureTextEntry
                     />
                     
@@ -96,6 +112,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         marginBottom: 20,
+    },
+    inputLabel: {
+        width: "95%",
+        fontSize: 14,
+        color: colors.text,
+        marginBottom: 4, // Add some space between label and input field
     },
     input: {
         width: "95%",
