@@ -1,4 +1,5 @@
-# Welcome to your Expo app 👋
+<<<<<<< HEAD
+# NeuroVibe
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
@@ -48,3 +49,6 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+=======
+# NeuroVibe
+>>>>>>> 3272ea9618b3a4628c74619614964236f19c4ef4
