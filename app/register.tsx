@@ -1,183 +1,184 @@
-import {
-  Text,
-  ImageBackground,
-  TextInput,
-  StyleSheet,
-  Pressable,
-  Alert,
-} from "react-native";
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-// import md5 from "md5";
+import {
+    View,
+    Text,
+    TextInput,
+    StyleSheet,
+    KeyboardAvoidingView,
+    TouchableWithoutFeedback,
+    Keyboard,
+    Platform,
+    Image,
+    TouchableOpacity,
+    Alert,
+    ActivityIndicator,
+} from "react-native";
 import { useRouter } from "expo-router";
+import FontIcon from "@/components/font-icon";
 
-// const baseUrl = "http://192.168.1.189:5000/api/";
-//Start Register
+const colors = {
+    primaryRed: "#CB2C3E",
+    background: "#FFFFFF",
+    text: "#333333",
+    inputBorder: "#E0E0E0",
+    error: "#FF0000",
+};
+
 function Register() {
-  const navigation = useNavigation();
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const router = useRouter(); // Initialize the router for navigation
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
-  const registerCusomer = () => {
-    //     console.log("Loading ....");
-    //     if (!name || !phone || !email || !password || !confirmPassword) {
-    //         console.log("All fields are required.");
-    //         Alert.alert("All fields are required.")
-    //         return;
-    //     }
-    //     if (!/\S+@\S+\.\S+/.test(email)) {
-    //         console.log("Invalid email format.");
-    //         Alert.alert("Invalid email format.")
-    //         return;
-    //     }
-    //     if (phone && !/^\d{10}$/.test(phone)) {
-    //         console.log("Invalid phone number format. It should be 10 digits.");
-    //         Alert.alert("Invalid phone number format. It should be 10 digits.")
-    //         return;
-    //     }
-    //     if (password !== confirmPassword) {
-    //         console.log("Passwords do not match.");
-    //         Alert.alert("Passwords do not match.")
-    //         return;
-    //     }
-    //     const postData = {
-    //         name: name,
-    //         phone: phone,
-    //         email: email,
-    //         password: password
-    //     };
-    //     fetch(baseUrl + "customer", {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(postData)
-    //     })
-    //         .then(response => response.json())
-    //         .then(responseData => {
-    //             console.log("Registration successful.");
-    //             navigation.navigate("Login");
-    //         })
-    //         .catch(error => {
-    //             console.error("Registration error:", error);
-    //         });
-  };
-  return (
-    <ImageBackground
-      source={require("../assets/images/logo.png")}
-      resizeMode="cover"
-      style={registerStyles.container}
-    >
-      <Pressable style={registerStyles.container1}>
-        <Text style={registerStyles.Lable}>Name</Text>
-        <TextInput
-          keyboardType="default"
-          style={registerStyles.Input}
-          onChangeText={(newText) => setName(newText)}
-        ></TextInput>
+    const handleRegister = () => {
+        if (!name || !email || !phone || !password || !confirmPassword) {
+            Alert.alert("Error", "All fields are required!");
+            return;
+        }
+        if (password !== confirmPassword) {
+            Alert.alert("Error", "Passwords do not match!");
+            return;
+        }
+        setLoading(true);
+        // Mock API call
+        setTimeout(() => {
+            setLoading(false);
+            Alert.alert("Success", "You have registered successfully!");
+            router.push("/");
+        }, 2000);
+    };
 
-        <Text style={registerStyles.Lable}>Email</Text>
-        <TextInput
-          keyboardType="email-address"
-          style={registerStyles.Input}
-          onChangeText={(newText) => setEmail(newText.toString())}
-        ></TextInput>
-
-        <Text style={registerStyles.Lable}>Phone Number</Text>
-        <TextInput
-          keyboardType="phone-pad"
-          style={registerStyles.Input}
-          onChangeText={(newText) => setPhone(newText.toString())}
-        ></TextInput>
-
-        <Text style={registerStyles.Lable}>Password</Text>
-        <TextInput
-          secureTextEntry={true}
-          keyboardType="visible-password"
-          style={registerStyles.Input}
-          onChangeText={(newText) => {
-            // setPassword(md5(newText.toString()))
-          }}
-        ></TextInput>
-
-        <Text style={registerStyles.Lable}>Confirm Password</Text>
-        <TextInput
-          secureTextEntry={true}
-          keyboardType="visible-password"
-          style={registerStyles.Input}
-          onChangeText={(newText) => {
-            // setConfirmPassword(md5(newText.toString()))
-          }}
-        ></TextInput>
-
-        <Pressable style={registerStyles.Button} onPress={registerCusomer}>
-          <Text style={registerStyles.text}>Register</Text>
-        </Pressable>
-        <Pressable
-          style={registerStyles.Button}
-          onPress={() => router.push("/")}
+    return (
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
-          <Text style={registerStyles.text}>I Have an account</Text>
-        </Pressable>
-      </Pressable>
-    </ImageBackground>
-  );
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    <Image
+                        source={require("../assets/images/logo.png")}
+                        style={styles.logo}
+                        resizeMode="contain"
+                    />
+                    <Text style={[styles.title, { color: colors.primaryRed }]}>
+                        Register on NeuroVibe
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Name"
+                        value={name}
+                        onChangeText={setName}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Phone"
+                        keyboardType="phone-pad"
+                        value={phone}
+                        onChangeText={setPhone}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Email"
+                        keyboardType="email-address"
+                        value={email}
+                        onChangeText={setEmail}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Password"
+                        secureTextEntry
+                        value={password}
+                        onChangeText={setPassword}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Confirm Password"
+                        secureTextEntry
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
+                    />
+                    <TouchableOpacity
+                        style={styles.registerButton}
+                        onPress={handleRegister}
+                        disabled={loading}
+                    >
+                        {loading ? (
+                            <ActivityIndicator color="#FFFFFF" />
+                        ) : (
+                            <>
+                                <Text style={styles.registerButtonText}>Register</Text>
+                                <FontIcon type="ionicon" name="checkmark" size={20} color="white" />
+                            </>
+                        )}
+                    </TouchableOpacity>
+                    <Text style={styles.registerText}>
+                        Already have an account?{" "}
+                        <Text
+                            style={styles.registerNow}
+                            onPress={() => router.push("/")}
+                        >
+                            Login now
+                        </Text>
+                    </Text>
+                </View>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
+    );
 }
-//End Register
 
-//Start registerStyles
-const registerStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  container1: {
-    top: "7%",
-    left: "2%",
-    width: "95%",
-    height: "82%",
-    borderRadius: 50,
-    backgroundColor: "#555",
-    padding: 30,
-    opacity: 0.9,
-  },
-  Lable: {
-    fontSize: 18,
-    color: "#fff",
-    textAlign: "left",
-    marginBottom: 15,
-    marginLeft: 15,
-  },
-  Input: {
-    backgroundColor: "#ffd",
-    width: "100%",
-    height: "8%",
-    borderRadius: 20,
-    padding: "5%",
-    fontSize: 20,
-    marginBottom: "5%",
-  },
-  Button: {
-    margin: 15,
-    alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 10,
-    paddingHorizontal: 40,
-    borderRadius: 15,
-    elevation: 3,
-    backgroundColor: "#fff",
-  },
-  text: {
-    fontSize: 17,
-    lineHeight: 21,
-    fontWeight: "500",
-    letterSpacing: 0.25,
-    color: "#000",
-  },
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 16,
+        backgroundColor: colors.background,
+    },
+    logo: {
+        width: 150,
+        height: 150,
+        marginBottom: 5,
+    },
+    title: {
+        fontSize: 24,
+        marginBottom: 20,
+    },
+    input: {
+        width: "95%",
+        borderWidth: 1,
+        borderColor: colors.inputBorder,
+        borderRadius: 10,
+        padding: 10,
+        marginBottom: 16,
+    },
+    registerButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 180,
+        backgroundColor: colors.primaryRed,
+        paddingVertical: 10,
+        borderRadius: 15,
+        marginTop: 20,
+    },
+    registerButtonText: {
+        color: "#FFFFFF",
+        fontSize: 18,
+        fontWeight: "bold",
+        marginRight: 10,
+    },
+    registerText: {
+        marginTop: 20,
+        fontSize: 14,
+        color: colors.text,
+    },
+    registerNow: {
+        color: colors.primaryRed,
+        fontWeight: "bold",
+    },
 });
-//End registerStyles
 
 export default Register;
