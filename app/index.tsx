@@ -10,17 +10,11 @@ import {
     Platform,
     Image,
     TouchableOpacity, // Import TouchableOpacity for custom button
+    Pressable
 } from "react-native";
 import { useRouter } from "expo-router";
 import FontIcon from "@/components/font-icon";
-
-// Define colors (simplified)
-const colors = {
-    primaryRed: "#CB2C3E", // Red from your logo
-    background: "#FFFFFF", // White background
-    text: "#333333",       // Dark text for readability
-    inputBorder: "#E0E0E0", // Lighter gray for input borders
-};
+import { colors } from "@/assets/colors/colors";
 
 export default function Login() {
     const router = useRouter();
@@ -85,11 +79,11 @@ export default function Login() {
                     </TouchableOpacity>
 
                     {/* Register Redirect Text */}
-                    <TouchableOpacity onPress={handleRegisterRedirect}>
+                    <Pressable onPress={handleRegisterRedirect}>
                         <Text style={styles.registerText}>
                             Don't have an account? <Text style={styles.registerNow}>Register now</Text>
                         </Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
