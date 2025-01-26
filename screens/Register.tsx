@@ -18,6 +18,8 @@ import {
 } from "react-native";
 import FontIcon from "../components/font-icon";
 import { colors } from "../assets/colors/colors";
+import { registerModel } from "../config/models/registerModel";
+import { registerRequist } from "../config/api";
 const { height } = Dimensions.get("screen");
 
 function Register({navigation}) {
@@ -41,22 +43,7 @@ function Register({navigation}) {
     }
     setLoading(true);
     //local ip (ipconfig)
-    const myIp = "192.168.100.5";
-    const response = await fetch("http://" + myIp + ":5000/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        email: email,
-        name: name,
-        gender: gender,
-        age: age,
-        type: "Client",
-        password: password,
-      }),
-    });
+    await registerRequist({name:name,email:email,gender:gender,password:password,age:age}as registerModel)
     setTimeout(() => {
       setLoading(false);
       Alert.alert("Success", "You have registered successfully!");
@@ -207,6 +194,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 16,
+    color: colors.text
   },
   picker: {
     width: "95%",
