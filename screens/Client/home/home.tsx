@@ -14,16 +14,17 @@ const HomeScreen = ({changeScreen}:IProps) => {
     {
       source: require("../../../assets/images/cars/car1.png"),
       description:
-        "Tesla Model X: Innovative electric SUV with unique falcon-wing doors",
+        "Porsche 911 GT3 RS: Track-ready supercar with precision engineering",
     },
     {
       source: require("../../../assets/images/cars/car2.png"),
-      description: "BMW M3: Iconic sports sedan with unmatched performance",
+       
+      description:  "Tesla Model X: Innovative electric SUV with unique falcon-wing doors",
     },
     {
       source: require("../../../assets/images/cars/car3.png"),
       description:
-        "Porsche 911 GT3 RS: Track-ready supercar with precision engineering",
+        "BMW M3: Iconic sports sedan with unmatched performance",
     },
   ];
 

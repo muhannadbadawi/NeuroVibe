@@ -3,7 +3,7 @@ import { registerModel } from "./models/registerModel";
 import { loginModel } from "./models/loginModel";
 import { Alert } from "react-native";
 
-const myIp = "192.168.100.5";
+const myIp = "172.31.99.235";
 export const loginRequist = async (model: loginModel) => {
   const response = await fetch(`http://${myIp}:5000/login`, {
     method: "POST",
