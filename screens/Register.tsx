@@ -27,7 +27,6 @@ function Register({navigation}) {
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -97,7 +96,6 @@ function Register({navigation}) {
               style={styles.input}
               placeholderTextColor="#999999"
               placeholder="Password"
-              secureTextEntry={!showPassword}
               value={password}
               onChangeText={setPassword}
             />
