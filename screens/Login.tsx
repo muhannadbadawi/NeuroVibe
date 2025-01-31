@@ -33,7 +33,6 @@ const Login = ({ navigation }) => {
 
     try {
       const user = await loginRequist({ email, password });
-      console.log("user: ", user);
 
       // Dispatch user data to Redux store
       dispatch(setUser(user));

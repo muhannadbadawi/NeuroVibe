@@ -159,15 +159,15 @@ export const fitchClients = async () => {
   }
 };
 
-export const deleteClient = async (clientId: string) => {
+export const deleteClient = async (id: string) => {
   try {
-    const response = await fetch(`http://${myIp}:5000/changePassword`, {
+    const response = await fetch(`http://${myIp}:5000/deleteUser`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({ clientId }),
+      body: JSON.stringify({ id }),
     });
     
     const result = await response.json();
