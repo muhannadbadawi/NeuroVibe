@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  StyleSheet,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
@@ -13,25 +12,23 @@ import {
   Alert,
   ActivityIndicator,
   Pressable,
-  ScrollView,
-  Dimensions,
+  ScrollView
 } from "react-native";
 import FontIcon from "../components/font-icon";
 import { colors } from "../assets/colors/colors";
 import { registerModel } from "../config/models/registerModel";
 import { registerRequist } from "../config/api";
-const { height } = Dimensions.get("screen");
+import { useRegisterStyles } from "./use-register-styles";
 
 function Register({navigation}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const styles = useRegisterStyles()
   const handleRegister = async () => {
     if (!name || !email || !gender || !password || !age || !confirmPassword) {
       Alert.alert("Error", "All fields are required!");
@@ -42,7 +39,6 @@ function Register({navigation}) {
       return;
     }
     setLoading(true);
-    //local ip (ipconfig)
     await registerRequist({name:name,email:email,gender:gender,password:password,age:age}as registerModel)
     setTimeout(() => {
       setLoading(false);
@@ -97,8 +93,8 @@ function Register({navigation}) {
               style={styles.input}
               placeholderTextColor="#999999"
               placeholder="Password"
-              secureTextEntry={!showPassword}
               value={password}
+              secureTextEntry
               onChangeText={setPassword}
             />
             <TextInput
@@ -155,7 +151,7 @@ function Register({navigation}) {
             <Pressable >
               <Text style={styles.registerText}>
                 Already have an account?
-                <Text style={styles.registerNow} onPress={()=>{navigation.replace("Login")}}>Login now</Text>
+                <Text style={styles.registerNow} onPress={()=>{navigation.replace("Login")}}> Login now</Text>
               </Text>
             </Pressable>
           </View>
@@ -164,109 +160,4 @@ function Register({navigation}) {
     </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: height,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 16,
-    backgroundColor: colors.background,
-  },
-  logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 5,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
-  dateInput: {
-    justifyContent: "center",
-    height: 50,
-  },
-  input: {
-    width: "95%",
-    borderWidth: 1,
-    borderColor: colors.inputBorder,
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 16,
-    color: colors.text
-  },
-  picker: {
-    width: "95%",
-    borderWidth: 1,
-    borderColor: colors.inputBorder,
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 16,
-  },
-  radioGroup: {
-    width: "95%",
-    flexDirection: "row",
-    gap: 50,
-    marginBottom: 16,
-  },
-  radioGroupLabel: {
-    fontSize: 16,
-    marginBottom: 8,
-    fontWeight: "bold",
-    color: colors.text,
-  },
-  radioButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  radioButtonSelected: {
-    borderRadius: 8,
-  },
-  radioCircle: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: colors.inputBorder,
-    marginRight: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  radioCircleSelected: {
-    backgroundColor: colors.primaryRed,
-  },
-  radioLabel: {
-    fontSize: 16,
-    color: colors.text,
-  },
-
-  registerButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 180,
-    backgroundColor: colors.primaryRed,
-    paddingVertical: 10,
-    borderRadius: 15,
-    marginTop: 20,
-  },
-  registerButtonText: {
-    color: "#FFFFFF",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginRight: 10,
-  },
-  registerText: {
-    marginTop: 20,
-    fontSize: 14,
-    color: colors.text,
-  },
-  registerNow: {
-    color: colors.primaryRed,
-    fontWeight: "bold",
-  },
-});
-
 export default Register;

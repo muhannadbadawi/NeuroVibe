@@ -10,7 +10,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <MainStackNavigator />
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
       </NavigationContainer>
     </Provider>
   );

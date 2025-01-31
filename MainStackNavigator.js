@@ -18,7 +18,6 @@ const MainStackNavigator = () => {
       <Stack.Group>
         <Stack.Screen name="ClientScreen" component={ClientScreen} />
         <Stack.Screen name="AdminScreen" component={AdminScreen} />
-
       </Stack.Group>
     </Stack.Navigator>
   );

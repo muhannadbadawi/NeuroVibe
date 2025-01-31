@@ -140,7 +140,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 16,
     borderColor: colors.inputBorder,
-    color:colors.text
+    color:colors.text,
+    backgroundColor:colors.container
   },
   loginButton: {
     flexDirection: "row",
