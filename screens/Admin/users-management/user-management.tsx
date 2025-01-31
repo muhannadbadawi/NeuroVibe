@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, Alert } from "react-native";
-import { fitchClients } from "../../../config/api"; // Assume deleteClient API is available
+import { deleteClient, fitchClients } from "../../../config/api"; // Assume deleteClient API is available
 import { MaterialIcons } from "@expo/vector-icons";
 import { useClientsStyles } from "./use-clients-styles";
 
@@ -48,7 +48,7 @@ const UsersManagement: React.FC = () => {
           style: "destructive",
           onPress: async () => {
             try {
-            //   await deleteClient(clientId); // Call the API to delete the client
+              await deleteClient(clientId); // Call the API to delete the client
               setClients((prevClients) =>
                 prevClients.filter((client) => client.id !== clientId)
               );

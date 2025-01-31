@@ -33,7 +33,6 @@ const Login = ({ navigation }) => {
 
     try {
       const user = await loginRequist({ email, password });
-      console.log("user: ", user);
 
       // Dispatch user data to Redux store
       dispatch(setUser(user));
@@ -141,7 +140,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 16,
     borderColor: colors.inputBorder,
-    color:colors.text
+    color:colors.text,
+    backgroundColor:colors.container
   },
   loginButton: {
     flexDirection: "row",
